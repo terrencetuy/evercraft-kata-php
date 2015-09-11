@@ -1,0 +1,4 @@
+# Dependencies grabbed from composer #
+######################################
+composer.lock
+vendor
