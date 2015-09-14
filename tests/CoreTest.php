@@ -7,25 +7,18 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	// --------------------------
 	public function testGetNameDefault(){
 		$character = new Character();
-		$characterName = $character->getName();
+		$characterName = $character->name();
 		$this->assertEquals(null, $characterName);
 	}
 
 
 	public function testGetNameFred(){
 		$character = new Character('fred');
-		$characterName = $character->getName();
+		$characterName = $character->name();
 		$this->assertEquals('fred', $characterName);
 	}
 
-
-	public function testSetName(){
-		$character = new Character('fred');
-		$character->setName('roger');
-		$characterName = $character->getName();
-		$this->assertEquals('roger', $characterName);
-	}
-
+	// ---------------------------------------------
 	// ---------------------------------------------
 
 
@@ -33,29 +26,23 @@ class CoreTest extends PHPUnit_Framework_TestCase
 	// --------------------
 	public function testGetAlignmentDefault(){
 		$character = new Character();
-		$characterAlignment = $character->getAlignment();
+		$characterAlignment = $character->alignment();
 		$this->assertEquals(Character::NEUTRAL, $characterAlignment);
 	}
 
+
 	public function testGetGoodAlignment(){
 		$character = new Character('fred', Character::GOOD);
-		$characterAlignment = $character->getAlignment();
+		$characterAlignment = $character->alignment();
 		$this->assertEquals(Character::GOOD, $characterAlignment);
 	}
 
-	public function testSetAlignment(){
-		$character = new Character();
-		$character->setAlignment(Character::EVIL);
-		$characterAlignment = $character->getAlignment();
-		$this->assertEquals(Character::EVIL, $characterAlignment);
-	}
 
 	/**
 	 * @expectedException Exception
 	 */
 	public function testSetInvalidAlignment(){
-		$character = new Character();
-		$character->setAlignment('hi');
+		$character = new Character(null, 'hi');
 	}
 
 }
