@@ -28,5 +28,35 @@ class CoreTest extends PHPUnit_Framework_TestCase
 
 	// ---------------------------------------------
 
+
+	// Feature: Alignment
+	// --------------------
+	public function testGetAlignmentDefault(){
+		$character = new Character();
+		$characterAlignment = $character->getAlignment();
+		$this->assertEquals(Character::NEUTRAL, $characterAlignment);
+	}
+
+	public function testGetGoodAlignment(){
+		$character = new Character('fred', Character::GOOD);
+		$characterAlignment = $character->getAlignment();
+		$this->assertEquals(Character::GOOD, $characterAlignment);
+	}
+
+	public function testSetAlignment(){
+		$character = new Character();
+		$character->setAlignment(Character::EVIL);
+		$characterAlignment = $character->getAlignment();
+		$this->assertEquals(Character::EVIL, $characterAlignment);
+	}
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testSetInvalidAlignment(){
+		$character = new Character();
+		$character->setAlignment('hi');
+	}
+
 }
 ?>
