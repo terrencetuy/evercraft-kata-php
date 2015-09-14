@@ -45,5 +45,26 @@ class CoreTest extends PHPUnit_Framework_TestCase
 		$character = new Character(null, 'hi');
 	}
 
+	// ---------------------------------------------
+	// ---------------------------------------------
+
+
+	// Feature: Armor Class & Hit Points
+	// ---------------------------------
+	public function testArmorClassDefault(){
+		$character = new Character();
+		$characterArmorClass = $character->armorClass();
+		$this->assertEquals(10, $characterArmorClass);
+	}
+
+
+	public function testHitPointDefault(){
+		$character = new Character();
+		$characterHitPoints = $character->hitPoints();
+		$this->assertEquals(5, $characterHitPoints);
+	}
+
+	// ---------------------------------------------
+	// ---------------------------------------------
 }
 ?>

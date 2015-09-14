@@ -42,5 +42,19 @@ class Character{
 		return $this->alignment;
 	}
 
+
+	// hardcoded because I haven't yet encountered a spec to justify otherwise
+	// magic number because I know I will eventually need to de-hardcode it
+	public function armorClass(){
+		return 10;
+	}
+
+
+	// hardcoded because I haven't yet encountered a spec to justify otherwise
+	// magic number because I know I will eventually need to de-hardcode it
+	public function hitPoints(){
+		return 5;
+	}
+
 }
 ?>
