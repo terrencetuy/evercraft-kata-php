@@ -15,7 +15,7 @@ class Character{
 	private $hitPoints;
 
 
-	public function __construct($name=null, $alignment=null, $hitPoints = null){
+	public function __construct($name=null, $alignment=self::NEUTRAL, $hitPoints = 5){
 		$this->name = $name;
 
 		// Setting alignment
@@ -23,7 +23,7 @@ class Character{
 		//    doesn't do === to compare
 		// N.B. I hate this
 		switch( true ){
-			case ( $alignment === null ):
+			case ( !$alignment ):
 				$this->alignment = self::NEUTRAL;
 				break;
 
@@ -38,10 +38,7 @@ class Character{
 		}
 
 		$this->armorClass = 10;
-		$this->hitPoints = 5;
-		if( $hitPoints !== null ){
-			$this->hitPoints = $hitPoints;
-		}
+		$this->hitPoints = $hitPoints;
 	}
 
 
@@ -67,6 +64,19 @@ class Character{
 	}
 
 
+	public function damage(){
+		$this->hitPoints = $this->hitPoints - 1;
+	}
+
+
+	public function isAlive(){
+		if( $this->hitPoints > 0 ){
+			return true;
+		}
+		return false;
+	}
+
+
 	public function attack($attackee, $roll){
 		if( $roll > self::MAX_ROLL  || $roll < self::MIN_ROLL ){
 			throw new Exception('Invalid Roll Value: ' . $roll);
@@ -80,19 +90,6 @@ class Character{
 				$attackee->damage();
 			}
 
-			return true;
-		}
-		return false;
-	}
-
-
-	public function damage(){
-		$this->hitPoints = $this->hitPoints - 1;
-	}
-
-
-	public function isAlive(){
-		if( $this->hitPoints > 0 ){
 			return true;
 		}
 		return false;
