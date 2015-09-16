@@ -7,6 +7,8 @@ class Character{
 
 
 	private $name;
+	private $alignment;
+	private $armorClass;
 
 
 	public function __construct($name=null, $alignment=null){
@@ -30,6 +32,8 @@ class Character{
 			default:
 				throw new Exception('Unknown Alignment: ' . $alignment);
 		}
+
+		$this->armorClass = 10;
 	}
 
 
@@ -54,6 +58,18 @@ class Character{
 	// magic number because I know I will eventually need to de-hardcode it
 	public function hitPoints(){
 		return 5;
+	}
+
+
+	public function attack($attackee, $roll){
+		if( $roll > 20  || $roll < 1 ){
+			throw new Exception('Invalid Roll Value: ' . $roll);
+		}
+
+		if( $roll >= $this->armorClass ){
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -66,5 +66,69 @@ class CoreTest extends PHPUnit_Framework_TestCase
 
 	// ---------------------------------------------
 	// ---------------------------------------------
+
+	// Feature: Character can attack
+	// ----------------------------
+	public function testCharacterSuccessfulAttack(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 20);
+		$this->assertEquals(true, $attackResult);
+	}
+
+
+	public function testCharacterUnsuccessfulAttack(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 1);
+		$this->assertEquals(false, $attackResult);
+	}
+
+	
+	public function testCharacterSuccessfulAttackRollEqualsArmorClass(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 10);
+		$this->assertEquals(true, $attackResult);
+	}
+
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testCharacterAttackRollTooHigh(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 100);
+	}
+
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testCharacterAttackRollTooLow(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 0);
+	}
+
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testCharacterAttackRollNotANumber(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		$attackResult = $attacker->attack($attackee, 'hello');
+	}
+
+
+
 }
 ?>
