@@ -5,13 +5,17 @@ class Character{
 	const NEUTRAL = 0;
 	const GOOD = 1;
 
+	const MAX_ROLL = 20;
+	const MIN_ROLL = 1;
+
 
 	private $name;
 	private $alignment;
 	private $armorClass;
+	private $hitPoints;
 
 
-	public function __construct($name=null, $alignment=null){
+	public function __construct($name=null, $alignment=null, $hitPoints = null){
 		$this->name = $name;
 
 		// Setting alignment
@@ -34,6 +38,10 @@ class Character{
 		}
 
 		$this->armorClass = 10;
+		$this->hitPoints = 5;
+		if( $hitPoints !== null ){
+			$this->hitPoints = $hitPoints;
+		}
 	}
 
 
@@ -54,19 +62,37 @@ class Character{
 	}
 
 
-	// hardcoded because I haven't yet encountered a spec to justify otherwise
-	// magic number because I know I will eventually need to de-hardcode it
 	public function hitPoints(){
-		return 5;
+		return $this->hitPoints;
 	}
 
 
 	public function attack($attackee, $roll){
-		if( $roll > 20  || $roll < 1 ){
+		if( $roll > self::MAX_ROLL  || $roll < self::MIN_ROLL ){
 			throw new Exception('Invalid Roll Value: ' . $roll);
 		}
 
 		if( $roll >= $this->armorClass ){
+			$attackee->damage();
+
+			// critical hit, does one more damage
+			if( $roll == self::MAX_ROLL ){
+				$attackee->damage();
+			}
+
+			return true;
+		}
+		return false;
+	}
+
+
+	public function damage(){
+		$this->hitPoints = $this->hitPoints - 1;
+	}
+
+
+	public function isAlive(){
+		if( $this->hitPoints > 0 ){
 			return true;
 		}
 		return false;

@@ -128,7 +128,52 @@ class CoreTest extends PHPUnit_Framework_TestCase
 		$attackResult = $attacker->attack($attackee, 'hello');
 	}
 
+	// ---------------------------------------------
+	// ---------------------------------------------
 
 
+	// Feature: Character can be damaged
+	// ---------------------------------
+	public function testCharacterTakesDamage(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		// this should be a successful attack
+		$attackResult = $attacker->attack($attackee, 15);
+		$attackeeHitPoints = $attackee->hitPoints();
+		$this->assertEquals(4, $attackeeHitPoints);
+	}
+
+
+	public function testCharacterTakesDamageCriticalHit(){
+		$attacker = new Character();
+		$attackee = new Character();
+
+		// this should be a crititcal hit
+		$attackResult = $attacker->attack($attackee, 20);
+		$attackeeHitPoints = $attackee->hitPoints();
+		$this->assertEquals(3, $attackeeHitPoints);
+	}
+
+
+	public function testCharacterWithZeroHitPointsIsDead(){
+		$character = new Character(null, null, 0);
+		$characterIsAlive = $character->isAlive();
+		$this->assertEquals(false, $characterIsAlive);
+	}
+
+
+	public function testCharacterWithNegativeHitPointsIsDead(){
+		$character = new Character(null, null, -5);
+		$characterIsAlive = $character->isAlive();
+		$this->assertEquals(false, $characterIsAlive);
+	}
+
+
+	public function testCharacterWithPositiveHitPointsIsAlive(){
+		$character = new Character(null, null, 5);
+		$characterIsAlive = $character->isAlive();
+		$this->assertEquals(true, $characterIsAlive);
+	}
 }
 ?>
